@@ -145,4 +145,16 @@ public class LoginE2ETest : BaseTest
         Assert.That(loginPage.Find(LoginPage.PasswordInput).GetAttribute("type"), Is.EqualTo("password"));
     }
 
+    [Test]
+    [AllureStory("Khoi gioi thieu")]
+    [Description("TC13 - Khoi ben trai hien thi heading, phu de va anh")]
+    public void TC13_LeftPanel_ShouldShowBrandingCaption()
+    {
+        var loginPage = new LoginPage(Driver).Open();
+
+        Assert.That(loginPage.Find(LoginPage.Heading).Text, Is.EqualTo("Không chỉ là một giải pháp quản lý"));
+        Assert.That(loginPage.Find(LoginPage.Caption).Text, Is.EqualTo("Làm việc mọi lúc mọi nơi"));
+        Assert.That(loginPage.Find(LoginPage.LeftImage).Displayed, Is.True);
+    }
+
 }
