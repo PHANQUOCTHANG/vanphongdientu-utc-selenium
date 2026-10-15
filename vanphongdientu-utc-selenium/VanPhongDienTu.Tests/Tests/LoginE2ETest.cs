@@ -169,4 +169,17 @@ public class LoginE2ETest : BaseTest
         Assert.That(loginPage.GetPersistentAttribute("value"), Is.EqualTo("1"));
     }
 
+    [Test]
+    [AllureStory("Giu dang nhap")]
+    [Description("TC15 - Bat roi tat giu dang nhap tro ve chua tick")]
+    public void TC15_ToggleKeepMeSignedInTwice_ShouldReturnToUnchecked()
+    {
+        var loginPage = new LoginPage(Driver).Open();
+
+        loginPage.ToggleKeepMeSignedIn();
+        Assert.That(loginPage.IsKeepMeSignedInChecked(), Is.True);
+        loginPage.ToggleKeepMeSignedIn();
+        Assert.That(loginPage.IsKeepMeSignedInChecked(), Is.False);
+    }
+
 }
