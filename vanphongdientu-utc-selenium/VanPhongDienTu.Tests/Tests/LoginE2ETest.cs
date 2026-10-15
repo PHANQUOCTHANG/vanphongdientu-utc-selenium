@@ -123,4 +123,16 @@ public class LoginE2ETest : BaseTest
         Assert.That(loginPage.Find(LoginPage.Copyright).Text, Does.Contain("Trường ĐH Giao Thông Vận Tải"));
     }
 
+    [Test]
+    [AllureStory("Thuoc tinh form")]
+    [Description("TC11 - Form dang nhap post toi dung endpoint")]
+    public void TC11_LoginForm_ShouldPostToLoginEndpoint()
+    {
+        var loginPage = new LoginPage(Driver).Open();
+        var form = loginPage.Find(LoginPage.LoginForm);
+
+        Assert.That(form.GetAttribute("action"), Does.EndWith("/Login"));
+        Assert.That(form.GetAttribute("method"), Is.EqualTo("post").IgnoreCase);
+    }
+
 }
