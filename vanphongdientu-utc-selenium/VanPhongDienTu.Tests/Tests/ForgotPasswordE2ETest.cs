@@ -58,4 +58,18 @@ public class ForgotPasswordE2ETest : BaseTest
         Assert.That(forgotPasswordPage.Find(ForgotPasswordPage.CaptchaImage).Displayed, Is.True);
     }
 
+    [Test]
+    [AllureStory("Footer")]
+    [Description("TC20 - Footer trang quen mat khau co link tro giup va phan hoi")]
+    public void TC20_ForgotPasswordFooter_ShouldShowHelpAndFeedbackLinks()
+    {
+        var forgotPasswordPage = new ForgotPasswordPage(Driver).Open();
+        var help = forgotPasswordPage.Find(ForgotPasswordPage.HelpCenterLink);
+        var feedback = forgotPasswordPage.Find(ForgotPasswordPage.FeedbackLink);
+
+        Assert.That(help.GetAttribute("href"), Does.StartWith("http://hotrokythuat.utc.edu.vn"));
+        Assert.That(help.GetAttribute("target"), Is.EqualTo("_blank"));
+        Assert.That(feedback.GetAttribute("href"), Is.EqualTo("mailto:hotrokythuat@utc.edu.vn"));
+    }
+
 }
