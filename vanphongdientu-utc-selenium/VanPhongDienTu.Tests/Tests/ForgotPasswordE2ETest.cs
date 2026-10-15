@@ -45,4 +45,17 @@ public class ForgotPasswordE2ETest : BaseTest
         Assert.That(forgotPasswordPage.Find(ForgotPasswordPage.Logo).Displayed, Is.True);
     }
 
+    [Test]
+    [AllureStory("Thuoc tinh form")]
+    [Description("TC19 - Form quen mat khau post toi Getpass va co anh captcha")]
+    public void TC19_ForgotPasswordForm_ShouldPostToGetpassWithCaptchaImage()
+    {
+        var forgotPasswordPage = new ForgotPasswordPage(Driver).Open();
+        var form = forgotPasswordPage.Find(ForgotPasswordPage.ForgotForm);
+
+        Assert.That(form.GetAttribute("action"), Does.EndWith("/Login/Getpass"));
+        Assert.That(form.GetAttribute("method"), Is.EqualTo("post").IgnoreCase);
+        Assert.That(forgotPasswordPage.Find(ForgotPasswordPage.CaptchaImage).Displayed, Is.True);
+    }
+
 }
