@@ -182,4 +182,16 @@ public class LoginE2ETest : BaseTest
         Assert.That(loginPage.IsKeepMeSignedInChecked(), Is.False);
     }
 
+    [Test]
+    [AllureStory("Footer")]
+    [Description("TC16 - Ban quyen footer hien thi nam va ten truong")]
+    public void TC16_Footer_ShouldShowCopyrightYearAndSchool()
+    {
+        var loginPage = new LoginPage(Driver).Open();
+        var copyright = loginPage.Find(LoginPage.Copyright).Text;
+
+        Assert.That(copyright, Does.Contain("Trường ĐH Giao Thông Vận Tải"));
+        Assert.That(copyright, Does.Contain("2026"));
+    }
+
 }
