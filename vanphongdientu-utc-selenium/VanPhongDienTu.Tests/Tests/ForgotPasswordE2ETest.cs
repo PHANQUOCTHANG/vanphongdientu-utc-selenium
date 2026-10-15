@@ -21,4 +21,18 @@ public class ForgotPasswordE2ETest : BaseTest
         Assert.That(forgotPasswordPage.GetErrorText(), Is.EqualTo("Mã bảo mật không chính xác"));
     }
 
+    [Test]
+    [AllureStory("Tro lai dang nhap")]
+    [Description("TC08 - Tro lai dang nhap tu trang quen mat khau")]
+    public void TC08_ClickBackToLogin_ShouldReturnToLoginPage()
+    {
+        var forgotPasswordPage = new ForgotPasswordPage(Driver).Open();
+        var loginPage = forgotPasswordPage.ClickBackToLogin();
+
+        Assert.That(Driver.Url, Does.Contain("/Login"));
+        Assert.That(Driver.Title, Is.EqualTo("Đăng nhập"));
+        Assert.That(loginPage.Find(LoginPage.UsernameInput).Displayed, Is.True);
+        Assert.That(loginPage.Find(LoginPage.LoginButton).Displayed, Is.True);
+    }
+
 }
