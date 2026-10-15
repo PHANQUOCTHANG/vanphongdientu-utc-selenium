@@ -64,4 +64,16 @@ public class LoginE2ETest : BaseTest
         Assert.That(Driver.Url, Does.Contain("/Login"));
     }
 
+    [Test]
+    [AllureStory("Giu dang nhap")]
+    [Description("TC05 - Tick checkbox Giu toi luon dang nhap")]
+    public void TC05_ToggleKeepMeSignedIn_ShouldCheckPersistentCheckbox()
+    {
+        var loginPage = new LoginPage(Driver).Open();
+
+        Assert.That(loginPage.IsKeepMeSignedInChecked(), Is.False);
+        loginPage.ToggleKeepMeSignedIn();
+        Assert.That(loginPage.IsKeepMeSignedInChecked(), Is.True);
+    }
+
 }
