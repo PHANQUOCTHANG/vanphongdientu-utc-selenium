@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Selenium + Allure
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v2
+
+      - name: Restore and test
+        env:
+          BROWSER: chrome
+          HEADLESS: "true"
+        run: dotnet test VanPhongDienTu.Tests.sln --configuration Release --logger "trx;LogFileName=test-results.trx"
+
+      - name: Collect Allure results
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p allure-results
+          find . -type d -name allure-results -not -path ./allure-results |
+            while read -r dir; do
+              cp -r "$dir"/. allure-results/ || true
+            done
+          ls -la allure-results || true
+
+      - name: Install Allure CLI
+        if: always()
+        run: npm install -g allure-commandline
+
+      - name: Generate Allure report
+        if: always()
+        run: allure generate allure-results --clean -o allure-report
+
+      - name: Upload TRX results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trx-results
+          path: "**/TestResults/*.trx"
+          if-no-files-found: ignore
+
+      - name: Upload Allure results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results
+          if-no-files-found: warn
+
+      - name: Upload Allure report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report
+          if-no-files-found: warn

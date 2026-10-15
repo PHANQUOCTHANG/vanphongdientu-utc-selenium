@@ -1,0 +1,35 @@
+## .NET
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.vs/
+.vs/
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+## Selenium / Chrome
+chromedriver.exe
+*.log
+
+## Allure
+allure-results/
+allure-report/
+
+## OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+## Secrets
+.env
+.env.*
+appsettings.Local.json
+*.pfx
+*.key
