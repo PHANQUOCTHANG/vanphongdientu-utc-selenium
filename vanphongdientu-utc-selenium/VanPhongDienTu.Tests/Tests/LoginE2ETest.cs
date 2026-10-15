@@ -25,4 +25,16 @@ public class LoginE2ETest : BaseTest
         Assert.That(loginPage.Find(LoginPage.ForgotPasswordLink).Displayed, Is.True);
     }
 
+    [Test]
+    [AllureStory("Validate form dang nhap")]
+    [Description("TC02 - Dang nhap khi bo trong ten dang nhap")]
+    public void TC02_LoginWithEmptyUsername_ShouldShowUsernameRequiredError()
+    {
+        var loginPage = new LoginPage(Driver).Open();
+        loginPage.ClickLogin();
+
+        Assert.That(loginPage.GetErrorText(), Is.EqualTo("Bạn chưa nhập tên đăng nhập"));
+        Assert.That(Driver.Url, Does.Contain("/Login"));
+    }
+
 }
