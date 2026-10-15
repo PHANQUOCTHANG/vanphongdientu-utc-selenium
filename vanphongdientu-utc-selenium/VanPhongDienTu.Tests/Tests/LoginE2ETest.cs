@@ -194,4 +194,16 @@ public class LoginE2ETest : BaseTest
         Assert.That(copyright, Does.Contain("2026"));
     }
 
+    [Test]
+    [AllureStory("Dieu huong")]
+    [Description("TC17 - Mo trang chu chuyen ve trang dang nhap")]
+    public void TC17_OpenBaseUrl_ShouldLandOnLoginPage()
+    {
+        var loginPage = new LoginPage(Driver).OpenBaseUrl();
+
+        Assert.That(Driver.Title, Is.EqualTo("Đăng nhập"));
+        Assert.That(loginPage.Find(LoginPage.LoginForm).Displayed, Is.True);
+        Assert.That(loginPage.Find(LoginPage.UsernameInput).Displayed, Is.True);
+    }
+
 }
