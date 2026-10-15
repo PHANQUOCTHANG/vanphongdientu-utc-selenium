@@ -135,4 +135,14 @@ public class LoginE2ETest : BaseTest
         Assert.That(form.GetAttribute("method"), Is.EqualTo("post").IgnoreCase);
     }
 
+    [Test]
+    [AllureStory("Bao mat o mat khau")]
+    [Description("TC12 - O mat khau duoc che (type=password)")]
+    public void TC12_PasswordField_ShouldBeMasked()
+    {
+        var loginPage = new LoginPage(Driver).Open();
+
+        Assert.That(loginPage.Find(LoginPage.PasswordInput).GetAttribute("type"), Is.EqualTo("password"));
+    }
+
 }
