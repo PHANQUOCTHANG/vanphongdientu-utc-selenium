@@ -37,4 +37,17 @@ public class LoginE2ETest : BaseTest
         Assert.That(Driver.Url, Does.Contain("/Login"));
     }
 
+    [Test]
+    [AllureStory("Validate form dang nhap")]
+    [Description("TC03 - Dang nhap khi bo trong mat khau")]
+    public void TC03_LoginWithEmptyPassword_ShouldShowPasswordRequiredError()
+    {
+        var loginPage = new LoginPage(Driver).Open();
+        loginPage.EnterUsername("testuser");
+        loginPage.ClickLogin();
+
+        Assert.That(loginPage.GetErrorText(), Is.EqualTo("Bạn chưa nhập mật khẩu"));
+        Assert.That(Driver.Url, Does.Contain("/Login"));
+    }
+
 }
