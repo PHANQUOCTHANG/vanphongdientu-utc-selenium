@@ -157,4 +157,16 @@ public class LoginE2ETest : BaseTest
         Assert.That(loginPage.Find(LoginPage.LeftImage).Displayed, Is.True);
     }
 
+    [Test]
+    [AllureStory("Giu dang nhap")]
+    [Description("TC14 - Checkbox giu dang nhap mac dinh chua tick va dung thuoc tinh")]
+    public void TC14_KeepMeSignedIn_ShouldDefaultUncheckedWithCorrectAttributes()
+    {
+        var loginPage = new LoginPage(Driver).Open();
+
+        Assert.That(loginPage.IsKeepMeSignedInChecked(), Is.False);
+        Assert.That(loginPage.GetPersistentAttribute("name"), Is.EqualTo("persistent"));
+        Assert.That(loginPage.GetPersistentAttribute("value"), Is.EqualTo("1"));
+    }
+
 }
