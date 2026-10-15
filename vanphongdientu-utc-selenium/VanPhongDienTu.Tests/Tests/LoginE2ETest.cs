@@ -106,4 +106,21 @@ public class LoginE2ETest : BaseTest
         Assert.That(href, Does.Contain("vanphongdientu.utc.edu.vn"));
     }
 
+    [Test]
+    [AllureStory("Footer")]
+    [Description("TC10 - Link Trung tam tro giup va Y kien phan hoi")]
+    public void TC10_FooterLinks_ShouldPointToHelpCenterAndFeedbackMail()
+    {
+        var loginPage = new LoginPage(Driver).Open();
+        var help = loginPage.Find(LoginPage.HelpCenterLink);
+        var feedback = loginPage.Find(LoginPage.FeedbackLink);
+
+        Assert.That(help.Text.Trim(), Is.EqualTo("Trung tâm trợ giúp"));
+        Assert.That(help.GetAttribute("href"), Does.StartWith("http://hotrokythuat.utc.edu.vn"));
+        Assert.That(help.GetAttribute("target"), Is.EqualTo("_blank"));
+        Assert.That(feedback.Text.Trim(), Is.EqualTo("Ý kiến phản hồi"));
+        Assert.That(feedback.GetAttribute("href"), Is.EqualTo("mailto:hotrokythuat@utc.edu.vn"));
+        Assert.That(loginPage.Find(LoginPage.Copyright).Text, Does.Contain("Trường ĐH Giao Thông Vận Tải"));
+    }
+
 }
