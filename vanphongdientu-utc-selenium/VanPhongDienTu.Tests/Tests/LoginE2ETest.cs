@@ -92,4 +92,18 @@ public class LoginE2ETest : BaseTest
         Assert.That(forgotPasswordPage.Find(ForgotPasswordPage.CaptchaImage).Displayed, Is.True);
     }
 
+    [Test]
+    [AllureStory("Dang nhap bang email UTC")]
+    [Description("TC09 - Link dang nhap bang e-mail UTC tro toi Google OAuth")]
+    public void TC09_GoogleLoginLink_ShouldPointToGoogleOAuth()
+    {
+        var loginPage = new LoginPage(Driver).Open();
+        var href = loginPage.Find(LoginPage.GoogleLoginLink).GetAttribute("href") ?? string.Empty;
+
+        Assert.That(loginPage.Find(LoginPage.GoogleLoginLink).Text.Trim(), Is.EqualTo("Đăng nhập bằng e-mail UTC"));
+        Assert.That(href, Does.Contain("accounts.google.com"));
+        Assert.That(href, Does.Contain("oauth2"));
+        Assert.That(href, Does.Contain("vanphongdientu.utc.edu.vn"));
+    }
+
 }
