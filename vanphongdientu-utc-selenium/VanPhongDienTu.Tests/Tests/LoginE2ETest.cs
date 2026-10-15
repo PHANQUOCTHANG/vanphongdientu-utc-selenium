@@ -76,4 +76,20 @@ public class LoginE2ETest : BaseTest
         Assert.That(loginPage.IsKeepMeSignedInChecked(), Is.True);
     }
 
+    [Test]
+    [AllureStory("Dieu huong quen mat khau")]
+    [Description("TC06 - Chuyen sang trang quen mat khau")]
+    public void TC06_ClickForgotPassword_ShouldOpenGetPassPage()
+    {
+        var loginPage = new LoginPage(Driver).Open();
+        var forgotPasswordPage = loginPage.ClickForgotPassword();
+
+        Assert.That(Driver.Url, Does.Contain("/Login/GetPass").Or.Contain("/Login/Getpass"));
+        Assert.That(Driver.Title, Is.EqualTo("Lấy lại mật khẩu"));
+        Assert.That(forgotPasswordPage.Find(ForgotPasswordPage.CaptchaInput).GetAttribute("placeholder"), Is.EqualTo("Mã bảo mật"));
+        Assert.That(forgotPasswordPage.Find(ForgotPasswordPage.EmailInput).GetAttribute("placeholder"), Is.EqualTo("Địa chỉ Email"));
+        Assert.That(forgotPasswordPage.Find(ForgotPasswordPage.SubmitButton).GetAttribute("value"), Is.EqualTo("Cập nhật"));
+        Assert.That(forgotPasswordPage.Find(ForgotPasswordPage.CaptchaImage).Displayed, Is.True);
+    }
+
 }
