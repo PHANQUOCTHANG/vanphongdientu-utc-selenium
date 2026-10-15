@@ -35,4 +35,14 @@ public class ForgotPasswordE2ETest : BaseTest
         Assert.That(loginPage.Find(LoginPage.LoginButton).Displayed, Is.True);
     }
 
+    [Test]
+    [AllureStory("Giao dien")]
+    [Description("TC18 - Trang quen mat khau hien thi logo")]
+    public void TC18_ForgotPasswordPage_ShouldShowLogo()
+    {
+        var forgotPasswordPage = new ForgotPasswordPage(Driver).Open();
+
+        Assert.That(forgotPasswordPage.Find(ForgotPasswordPage.Logo).Displayed, Is.True);
+    }
+
 }
